@@ -1,0 +1,30 @@
+﻿@model IEnumerable<DeviceHardwareApp2.ViewModels.DeviceUserGroup>
+
+@{
+    ViewBag.Title = "User Statistics";
+}
+
+<h2>User Statistics</h2>
+
+<table>
+    <tr>
+        <th>
+            Position
+        </th>
+        <th>
+            Users
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Postion)
+            </td>
+            <td>
+                @item.UserCount
+            </td>
+        </tr>
+    }
+</table>

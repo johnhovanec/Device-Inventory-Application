@@ -1,0 +1,154 @@
+﻿@model PagedList.IPagedList<DeviceHardwareApp2.Models.Device>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Devices";
+}
+
+<h2>Devices</h2>
+
+<p>
+    @Html.ActionLink("Create New Device", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "Device", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table tableResults">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.InventoryNumber)*@
+            @Html.ActionLink("Inventory Number", "Index", new { sortOrder = ViewBag.InvNumberSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Name)*@
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.IP)*@
+            @Html.ActionLink("IP", "Index", new { sortOrder = ViewBag.IPSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Department.Name)*@
+            @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DeptNameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.User.UserName)*@
+            @Html.ActionLink("User", "Index", new { sortOrder = ViewBag.UserNameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Manufacturer)*@
+            @Html.ActionLink("Manufacturer", "Index", new { sortOrder = ViewBag.ManufacturerSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Model)*@
+            @Html.ActionLink("Model", "Index", new { sortOrder = ViewBag.ModelSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.MAC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SerialNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceTag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WallJack)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SwitchPortNumber)
+        </th>*@
+        <th>
+            @*@Html.DisplayNameFor(model => model.Type)*@
+            @Html.ActionLink("Type", "Index", new { sortOrder = ViewBag.TypeSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Active)*@
+            @Html.ActionLink("Active", "Index", new { sortOrder = ViewBag.ActiveSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.OperatingSystem)*@
+            @Html.ActionLink("OS", "Index", new { sortOrder = ViewBag.OSSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Notes)*@
+            @Html.ActionLink("Notes", "Index", new { sortOrder = ViewBag.NotesSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.CriticalRating)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.InventoryNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manufacturer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.MAC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SerialNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceTag)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WallJack)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SwitchPortNumber)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OperatingSystem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.CriticalRating)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DeviceID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DeviceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DeviceID })
+        </td>
+    </tr>
+}
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
